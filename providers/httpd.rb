@@ -8,11 +8,11 @@ action :add do
   end
 end
 
-action :remove
-  node['healthchecks'][new_resource.service]['http'][new_resource.url] = { 'enabled' => true } = nil
+action :remove do
+  node['healthchecks'][new_resource.service]['http'][new_resource.url] = nil
 end
 
-action :enable
+action :enable do
   if node['healthchecks'].nil? ||
     node['healthchecks'][new_resource.service].nil? ||
     node['healthchecks'][new_resource.service]['http'].nil? ||
@@ -21,7 +21,7 @@ action :enable
   end
 end
 
-action :disable
+action :disable do
   if node['healthchecks'].nil? ||
     node['healthchecks'][new_resource.service].nil? ||
     node['healthchecks'][new_resource.service]['http'].nil? ||
