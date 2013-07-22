@@ -16,6 +16,10 @@ Only works with chef-server, not chef-solo, since your monitoring server will ne
 
 ## HTTP Check
 
+service "my-app" do
+  description "An example application to check"
+end
+
 healthcheck_http "http://#{node.name}:80/healthcheck" do
   service "my-app"
 end

@@ -1,5 +1,6 @@
 
 action :add do
+  Chef::Application.fatal! "Can't define a healthcheck_http for undefined service '#{new_resource.service}'" unless service_defined?(new_resource.service)
   if http_healthcheck_enabled?(new_resource.service, new_resource.url)
     new_resource.updated_by_last_action(false)
   else
