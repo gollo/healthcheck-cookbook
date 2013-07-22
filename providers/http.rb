@@ -4,17 +4,12 @@ action :add do
     node['healthchecks'][new_resource.service].nil? ||
     node['healthchecks'][new_resource.service]['http'].nil? ||
     node['healthchecks'][new_resource.service]['http'][new_resource.url].nil?
-
-puts "KSM: service: #{new_resource.service}"
-puts "KSM: url: #{new_resource.url}"
-puts "KSM: full attribute: #{node['healthchecks'][new_resource.service]['http'][new_resource.url]}"
-
-      node['healthchecks'][new_resource.service]['http'][new_resource.url] = { 'enabled' => true }
+      node.set['healthchecks'][new_resource.service]['http'][new_resource.url] = { 'enabled' => true }
   end
 end
 
 action :remove do
-  node['healthchecks'][new_resource.service]['http'][new_resource.url] = nil
+  node.set['healthchecks'][new_resource.service]['http'][new_resource.url] = nil
 end
 
 action :enable do
@@ -22,7 +17,7 @@ action :enable do
     node['healthchecks'][new_resource.service].nil? ||
     node['healthchecks'][new_resource.service]['http'].nil? ||
     node['healthchecks'][new_resource.service]['http'][new_resource.url].nil?
-      node['healthchecks'][new_resource.service]['http'][new_resource.url]['enabled'] = true
+      node.set['healthchecks'][new_resource.service]['http'][new_resource.url]['enabled'] = true
   end
 end
 
@@ -31,6 +26,6 @@ action :disable do
     node['healthchecks'][new_resource.service].nil? ||
     node['healthchecks'][new_resource.service]['http'].nil? ||
     node['healthchecks'][new_resource.service]['http'][new_resource.url].nil?
-      node['healthchecks'][new_resource.service]['http'][new_resource.url]['enabled'] = false
+      node.set['healthchecks'][new_resource.service]['http'][new_resource.url]['enabled'] = false
   end
 end
