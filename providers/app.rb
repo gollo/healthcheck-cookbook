@@ -1,9 +1,9 @@
 
 action :add do
-  if service_defined?(new_resource.name) && service_description(new_resource.name) == new_resource.description
+  if app_defined?(new_resource.name) && app_description(new_resource.name) == new_resource.description
     new_resource.updated_by_last_action(false)
   else
-    Chef::Log.info "Defining service for healthcheck #{new_resource.name}"
+    Chef::Log.info "Defining app for healthcheck #{new_resource.name}"
     node.set['healthchecks'][new_resource.name]['_info'] = {
       'description'     => new_resource.description,
       'current_version' => new_resource.current_version,
@@ -15,8 +15,8 @@ action :add do
 end
 
 action :remove do
-  if service_defined?(new_resource.name)
-    Chef::Log.info "Removing service definition for #{new_resource.name}"
+  if app_defined?(new_resource.name)
+    Chef::Log.info "Removing app definition for #{new_resource.name}"
     node.set['healthchecks'][new_resource.name] = nil
     new_resource.updated_by_last_action(true)
   else

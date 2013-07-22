@@ -1,8 +1,8 @@
 
-def http_healthcheck_exists? (service, url)
-  attribute_exists?('healthchecks', service, 'http', url)
+def http_healthcheck_exists? (app, url)
+  attribute_exists?('healthchecks', app, 'http', url)
 end
 
-def http_healthcheck_enabled? (service, url)
-  http_healthcheck_exists?(service, url) && node['healthchecks'][service]['http'][url]['enabled']
+def http_healthcheck_enabled? (app, url)
+  http_healthcheck_exists?(app, url) && node['healthchecks'][app]['http'][url]['enabled']
 end
